@@ -35,7 +35,7 @@ const searchPlayers = () =>{
 
 const displayPlayers = (players) => {
  for(const player of players){
-    //  console.log(player.strThumb)
+    //  console.log(player.idPlayer)
     const playerContainer = document.getElementById('player-container')
     const div = document.createElement('div')
     div.innerHTML = `
@@ -49,7 +49,7 @@ const displayPlayers = (players) => {
     <p></p>
     <div class="all-button"> 
         <button class="btn btn-danger">Delete</button>
-        <button class="btn btn-success">Details</button>
+        <button onclick = "details(${player.idPlayer})" class="btn btn-success">Details</button>
  
     </div>
  
@@ -58,4 +58,12 @@ const displayPlayers = (players) => {
     playerContainer.appendChild(div)
  }
 
+}
+
+const details = (playerId) =>{
+    // console.log(playerId)
+    const url= `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${playerId}`
+    fetch(url)
+    .then(res => res.json())
+    .then(data => console.log(data.players[0]))
 }
