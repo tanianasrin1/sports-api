@@ -1,24 +1,25 @@
+const playerContainer = document.getElementById('player-container')
 const searchPlayers = () =>{
+  
     const input = document.getElementById('input-value')
     const inputvalue = (input.value);
     // console.log(inputvalue)
     const error = document.getElementById('error')
-
     // console.log(error)
     
      if (inputvalue == ''){
-        error.innerText = 'Enter the number'
+        error.innerText = 'Enter the value'
         input.value = ''
+        playerContainer.innerHTML = ''
     }
     
-    //  if( inputvalue != 'number'){
-    //     error.innerText = 'please Enter the valid number'
-    //     input.value = ''
-    // }
+   
 
-     if(inputvalue <= 0){
+    else if(!isNaN(inputvalue)){
         error.innerText = 'Enter the Positive number'
         input.value = ''
+        playerContainer.innerHTML = ''
+        
     }
 
      
@@ -28,8 +29,12 @@ const searchPlayers = () =>{
         .then(res => res.json())
         .then(data => displayPlayers(data.player))
         input.value = ''
+        playerContainer.innerHTML = ''
+        error.innerHTML = ''
+        
     
       }
+
 
 }
 
@@ -65,5 +70,29 @@ const details = (playerId) =>{
     const url= `https://www.thesportsdb.com/api/v1/json/2/lookupplayer.php?id=${playerId}`
     fetch(url)
     .then(res => res.json())
-    .then(data => console.log(data.players[0]))
+    .then(data => displayPlayerDetails(data.players[0]))
+}
+
+const displayPlayerDetails = details =>{
+    // console.log(details.strGender)
+    if(details.strGender == 'Male'){
+        document.getElementById('male-img').style.display = 'block'
+        document.getElementById('female-img').style.display = 'none'
+    }
+
+    else{
+        document.getElementById('male-img').style.display = 'none'
+        document.getElementById('female-img').style.display = 'block'
+    }
+    const playerDetails = document.getElementById('details')
+    const div = document.createElement('div')
+    div.innerHTML = `
+    <div class="pro-pic">
+ 
+    <img class="w-25" src="${details.strThumb}" alt="">
+    </div>
+    <h2>Name: ${details.strPlayer}</h2>
+    <h5>Country: ${details.strNationality}</h5>
+    `
+    playerDetails.appendChild(div)
 }
