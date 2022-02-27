@@ -52,6 +52,7 @@ const displayPlayers = (players) => {
     // const spinner = document.getElementById('spinner').style.display = 'block'
     const playerContainer = document.getElementById('player-container')
     const div = document.createElement('div')
+    
     div.innerHTML = `
     <div class="card border p-5">
     <div class="pro-pic">
