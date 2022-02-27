@@ -1,6 +1,6 @@
 const playerContainer = document.getElementById('player-container')
 const searchPlayers = () =>{
-  
+    const spinner = document.getElementById('spinner').style.display = 'block'
     const input = document.getElementById('input-value')
     const inputvalue = (input.value);
     // console.log(inputvalue)
@@ -31,7 +31,7 @@ const searchPlayers = () =>{
         input.value = ''
         playerContainer.innerHTML = ''
         error.innerHTML = ''
-        
+      
     
       }
 
@@ -39,8 +39,17 @@ const searchPlayers = () =>{
 }
 
 const displayPlayers = (players) => {
+    if(players){
+        document.getElementById('spinner').style.display = 'none'
+    }
+    
+    else{
+        document.getElementById('spinner').style.display = 'block'
+    }
+
  for(const player of players){
     //  console.log(player.idPlayer)
+    // const spinner = document.getElementById('spinner').style.display = 'block'
     const playerContainer = document.getElementById('player-container')
     const div = document.createElement('div')
     div.innerHTML = `
